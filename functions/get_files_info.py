@@ -10,29 +10,29 @@ class ChildDetails(TypedDict):
 
 def get_files_info(working_directory, directory="."):
     try:
-        working_directory_absolute_path = os.path.abspath(working_directory)
+        absolute_working_directory_path = os.path.abspath(working_directory)
         full_path = os.path.join(working_directory, directory)
-        full_absolute_path = os.path.abspath(full_path)
+        absolute_full_path = os.path.abspath(full_path)
 
-        if not full_absolute_path.startswith(working_directory_absolute_path):
-            return f'Error: Cannot list "{full_absolute_path}" as it is outside the permitted working directory'
+        if not absolute_full_path.startswith(absolute_working_directory_path):
+            return f'Error: Cannot list "{absolute_full_path}" as it is outside the permitted working directory'
 
-        if not os.path.isdir(full_absolute_path):
-            return f'Error: "{full_absolute_path}" is not a directory'
+        if not os.path.isdir(absolute_full_path):
+            return f'Error: "{absolute_full_path}" is not a directory'
 
         # direct children of the directory, both files and folders
-        children = os.listdir(full_absolute_path)
+        children = os.listdir(absolute_full_path)
 
         output_str = ""
 
         for child in children:
 
-            child_path = os.path.join(full_absolute_path, child)
+            absolute_child_path = os.path.join(absolute_full_path, child)
 
             data: ChildDetails = {
                 "name": child,
-                "size": os.path.getsize(child_path),
-                "is_dir": os.path.isdir(child_path),
+                "size": os.path.getsize(absolute_child_path),
+                "is_dir": os.path.isdir(absolute_child_path),
             }
 
             output_str += f"- {data['name']}: file_size={data['size']} bytes, is_dir={data['is_dir']}\n"

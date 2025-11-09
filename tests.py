@@ -1,29 +1,14 @@
-from functions.get_files_info import get_files_info
+from functions.get_file_content import get_file_content
 
-current_dir_res = get_files_info("calculator", ".")
-print(
-    f"""
-Result for current directory:
-{current_dir_res}"""
-)
 
-pkg_res = get_files_info("calculator", "pkg")
-print(
-    f"""
-Result for 'pkg' directory:
-{pkg_res}"""
-)
+main_res = get_file_content("calculator", "main.py")
+print(main_res)
 
-bin_res = get_files_info("calculator", "/bin")
-print(
-    f"""
-Result for '/bin' directory:
-{bin_res}"""
-)
+calc_res = get_file_content("calculator", "pkg/calculator.py")
+print(calc_res)
 
-parent_dir_res = get_files_info("calculator", "../")
-print(
-    f"""
-Result for '../' directory:
-{parent_dir_res}"""
-)
+cat_res = get_file_content("calculator", "/bin/cat")
+print(cat_res)
+
+missing_res = get_file_content("calculator", "pkg/does_not_exist.py")
+print(missing_res)
