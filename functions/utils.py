@@ -8,7 +8,7 @@ def validate_path_in_working_directory(working_directory, path):
 
     if not absolute_path.startswith(absolute_working_directory_path):
         raise Exception(
-            f'Cannot access "{absolute_path}" as it is outside the permitted working directory'
+            f'Cannot access "{path}" as it is outside the permitted working directory'
         )
 
     return absolute_path
