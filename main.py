@@ -32,7 +32,7 @@ available_functions = types.Tool(
     ]
 )
 
-response = client.models.generate_content(  # type: ignore[misc]
+response = client.models.generate_content(
     model="gemini-2.0-flash-001",
     contents=messages,
     config=types.GenerateContentConfig(
