@@ -1,7 +1,7 @@
 from .utils import validate_path_in_working_directory
 
 
-def write_file(working_directory, file_path, content):
+def write_file(working_directory: str, file_path: str, content: str):
     try:
         absolute_file_path = validate_path_in_working_directory(
             working_directory, file_path

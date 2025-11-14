@@ -3,7 +3,7 @@ import os
 import subprocess
 
 
-def run_python_file(working_directory, file_path, args=[]):
+def run_python_file(working_directory: str, file_path: str, args: list[str] = []):
     try:
         absolute_file_path = validate_path_in_working_directory(
             working_directory, file_path

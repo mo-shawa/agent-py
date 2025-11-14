@@ -1,16 +1,9 @@
 import os
 from google.genai import types
-from typing import TypedDict
 from .utils import validate_path_in_working_directory
 
 
-class ChildDetails(TypedDict):
-    name: str
-    size: int
-    is_dir: bool
-
-
-def get_files_info(working_directory, directory="."):
+def get_files_info(working_directory: str, directory: str = "."):
     try:
         absolute_full_path = validate_path_in_working_directory(
             working_directory, directory

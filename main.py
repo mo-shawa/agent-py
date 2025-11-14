@@ -32,7 +32,7 @@ available_functions = types.Tool(
     ]
 )
 
-response = client.models.generate_content(
+response = client.models.generate_content(  # type: ignore[misc]
     model="gemini-2.0-flash-001",
     contents=messages,
     config=types.GenerateContentConfig(
@@ -50,7 +50,7 @@ if isinstance(response.function_calls, list):
     for call in response.function_calls:
         print(f"\nCalling function: {call.name}({call.args})")
 
-if args.verbose:
+if args.verbose and response.usage_metadata:
     print(
         f"""
 Prompt tokens: {response.usage_metadata.prompt_token_count}

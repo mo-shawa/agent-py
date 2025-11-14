@@ -1,7 +1,7 @@
 import os
 
 
-def validate_path_in_working_directory(working_directory, path):
+def validate_path_in_working_directory(working_directory: str, path: str) -> str:
     absolute_working_directory_path = os.path.abspath(working_directory)
     full_path = os.path.join(working_directory, path)
     absolute_path = os.path.abspath(full_path)

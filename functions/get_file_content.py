@@ -4,7 +4,7 @@ from .utils import validate_path_in_working_directory
 MAX_FILE_CHARS = 10000  # TODO: could not import
 
 
-def get_file_content(working_directory, file_path):
+def get_file_content(working_directory: str, file_path: str):
     try:
         absolute_file_path = validate_path_in_working_directory(
             working_directory, file_path
