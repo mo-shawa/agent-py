@@ -1,5 +1,7 @@
 import os
+
 from google.genai import types
+
 from .utils import validate_path_in_working_directory
 
 MAX_FILE_CHARS = 10000  # TODO: could not import
@@ -17,7 +19,6 @@ def get_file_content(working_directory: str, file_path: str):
             )
 
         with open(absolute_file_path) as file:
-
             file_content_string = file.read(MAX_FILE_CHARS)
 
             if len(file.read()) > 10000:

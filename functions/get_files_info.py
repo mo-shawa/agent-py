@@ -1,5 +1,7 @@
 import os
+
 from google.genai import types
+
 from .utils import validate_path_in_working_directory
 
 
@@ -18,7 +20,6 @@ def get_files_info(working_directory: str, directory: str = "."):
         output_str = ""
 
         for child in children:
-
             absolute_child_path = os.path.join(absolute_full_path, child)
 
             name = child
