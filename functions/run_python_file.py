@@ -1,6 +1,7 @@
 from functions.utils import validate_path_in_working_directory
 import os
 import subprocess
+from google.genai import types
 
 
 def run_python_file(working_directory: str, file_path: str, args: list[str] = []):
@@ -32,3 +33,23 @@ def run_python_file(working_directory: str, file_path: str, args: list[str] = []
 
     except Exception as e:
         return f"Error: {e}"
+
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Execute a Python file with optional arguments.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the Python file, relative to the workding directory.",
+            ),
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                items=types.Schema(type=types.Type.STRING),
+                description="An optional list of arguments",
+            ),
+        },
+    ),
+)
