@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
+from functions.call_function import call_function
 from functions.get_file_content import schema_get_file_content
 from functions.get_files_info import schema_get_files_info
 from functions.run_python_file import schema_run_python_file
@@ -41,7 +42,7 @@ available_functions = types.Tool(
 )
 
 response = client.models.generate_content(
-    model="gemini-2.0-flash-001",
+    model="gemini-2.5-flash-lite",
     contents=messages,
     config=types.GenerateContentConfig(
         tools=[available_functions],
@@ -54,9 +55,36 @@ if args.verbose:
 
 print(f"\n{response.text}")
 
+results = []
+
 if isinstance(response.function_calls, list):
     for call in response.function_calls:
-        print(f"\nCalling function: {call.name}({call.args})")
+        function_call_result = call_function(call)
+
+        # if it's a string, then there was an unhandled error that reached the except block
+        if isinstance(function_call_result, str):
+            sys.exit(function_call_result)
+
+        parts = function_call_result.parts
+
+        if not parts:
+            raise Exception(f"{call.name}.parts is empty")
+
+        function_response = parts[0].function_response
+
+        if not function_response:
+            raise Exception(f"{call.name} response is empty")
+
+        final_response = function_response.response
+
+        if not final_response:
+            raise Exception(f"{call.name} final response is empty")
+
+        results.append(parts[0])
+
+        if args.verbose:
+            print(f"-> {final_response}")
+
 
 if args.verbose and response.usage_metadata:
     print(
